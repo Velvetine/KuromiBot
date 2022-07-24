@@ -20,11 +20,19 @@ for (const file of commandFiles) {
   client.commands.set(command.data.name, command);
 }
 
-// Once the client is ready, run this code just once!
-client.once('ready', () => {
-  console.log('Open! Door of Dreams!');
-});
+const eventsPath = path.join(__dirname, 'events');
+const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
+for (const file of eventFiles) {
+  const filePath = path.join(eventsPath, file);
+  const event = require(filePath);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args));
+  }
+  else {
+    client.on(event.name, (...args) => event.execute(...args));
+  }
+}
 // After running deploy-commmands.js, we now listen for interactions
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
