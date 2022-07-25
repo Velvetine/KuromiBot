@@ -27,13 +27,13 @@ module.exports = {
       await interaction.reply({ content: 'You need to switch your limits!', ephemeral: true });
     }
     else {
-      fd = fs.closeSync(fs.openSync('rng.txt', 'w'));
       const random = new Rdo({ apiKey: process.env.RANDOM_KEY });
-      stream = fs.createWriteStream('rng.txt', { flags:'a' });
+      const randomRequests = [];
       for (i = 0; i < iterations; i++) {
-        random.integer({ min: lower, max: upper }).then(val => stream.write(val + ' '));
+        randomRequests.push(random.integer({ min: lower, max: upper }));
       }
-      await interaction.reply(`I voted for **${fs.readFileSync('rng.txt').toString('utf-8')}**`);
+      const randNums = await Promise.all(randomRequests);
+      await interaction.reply(`I voted for **${randNums.toString()}!**`);
     }
   },
 };
