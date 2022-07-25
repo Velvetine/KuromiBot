@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { SlashCommandBuilder } = require('discord.js');
 const Rdo = require('rdo');
+const fs = require('fs');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -26,10 +27,13 @@ module.exports = {
       await interaction.reply({ content: 'You need to switch your limits!', ephemeral: true });
     }
     else {
+      fd = fs.closeSync(fs.openSync('rng.txt', 'w'));
       const random = new Rdo({ apiKey: process.env.RANDOM_KEY });
+      stream = fs.createWriteStream('rng.txt', { flags:'a' });
       for (i = 0; i < iterations; i++) {
-        await random.integer({ min: lower, max: upper }).then(val => interaction.reply(`I voted for **${val}**!`));
+        random.integer({ min: lower, max: upper }).then(val => stream.write(val + ' '));
       }
+      await interaction.reply(`I voted for **${fs.readFileSync('rng.txt').toString('utf-8')}**`);
     }
   },
 };
