@@ -35,7 +35,7 @@ for (const file of eventFiles) {
 }
 // After running deploy-commmands.js, we now listen for interactions
 client.on('interactionCreate', async interaction => {
-  if (!interaction.isChatInputCommand()) return;
+  if (!interaction.isChatInputCommand() && !interaction.isButton() && !interaction.isUserContextMenuCommand()) return;
 
   const command = client.commands.get(interaction.commandName);
 
@@ -45,8 +45,22 @@ client.on('interactionCreate', async interaction => {
     await command.execute(interaction);
   } catch (error) {
     console.error(error);
-    await interaction.reply({ content: 'Ngah! Something broke! Definitely making a Kuromi note for this...', ephemeral: true });
+    await interaction.reply('Ngah! Something broke! Definitely making a Kuromi note for this...');
   }
+});
+
+// The following will break once Discord makes message content a privileged intent for ALL bots.
+// TODO: Find an alternate way of doing this before then.
+client.on('messageCreate', async message => {
+  if (!message.author.bot) {
+    if (message.content.includes(':erikasquish:') || message.content.includes(':erikasquishloop:') || message.content.includes(':erikasquishfastloop:'))
+      message.channel.send('<@713528433069654069> has been squished!');
+    else if (message.content.includes(':papayatwirl:') || message.content.includes(':papayatwirlfast:'))
+      message.channel.send('<@270445864080637953> has spun around!');
+    else if (message.content.includes(':tsubomistretch:'))
+      message.channel.send('<@171225691751317504> has been stretched!');
+    else return;
+  } else return;
 });
 
 // And now we login to Discord with our token

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { SlashCommandBuilder } = require('discord.js');
-const Rdo = require('rdo');
+const rdo = require('@randomorg/core');
 const fs = require('fs');
 
 module.exports = {
@@ -27,13 +27,8 @@ module.exports = {
       await interaction.reply({ content: 'You need to switch your limits!', ephemeral: true });
     }
     else {
-      const random = new Rdo({ apiKey: process.env.RANDOM_KEY });
-      const randomRequests = [];
-      for (i = 0; i < iterations; i++) {
-        randomRequests.push(random.integer({ min: lower, max: upper }));
-      }
-      const randNums = await Promise.all(randomRequests);
-      await interaction.reply(`I voted for **${randNums.toString()}!**`);
+      let random = new rdo.RandomOrgClient(process.env.RANDOM_KEY);
+      await random.generateIntegers(iterations, lower, upper).then(val => interaction.reply(`I voted for **${val}!**`));
     }
   },
 };
