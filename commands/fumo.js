@@ -3,16 +3,18 @@ const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder, ButtonBuilder } = require('discord.js');
 const { ButtonStyle } = require('discord.js');
 const fs = require('fs');
-const file = 'txtfiles/anno.txt';
 const allowedRoles = [
   '386270894286176257',
-  '791613603534733314'
+  '791613603534733314',
+  '206274060642942976',
+  '379400611025911814',
+  '1027031406758613012'
 ];
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('anno')
-    .setDescription('Post a picture of that one guy who did some shows!')
+    .setName('fumo')
+    .setDescription('fumo')
     .addSubcommand(subcommand =>
       subcommand
         .setName('add')
@@ -30,9 +32,15 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand
         .setName('post')
-        .setDescription('As you\'d expect from the master.')),
+        .setDescription('Posts a glorious Touhou plushie!')),
   
   async execute(interaction) {
+    if (interaction.guild.id === '182256519134445568') {
+      file = 'txtfiles/fumosgg.txt';
+    }
+    else {
+      file = 'txtfiles/fumo.txt';
+    }
     if (interaction.options.getSubcommand() === 'add') {
       if (interaction.user.roles.cache.some(role => allowedRoles.includes(role.id))) {
         const addition = interaction.options.getString('media');
@@ -120,7 +128,7 @@ module.exports = {
       }
       else {
         const embed = new EmbedBuilder()
-          .setTitle('A legend at work...')
+          .setTitle('your cool!')
           .setColor(0xf6a7c0)
           .setImage(textByLine[selection]);
         await interaction.reply({ embeds: [embed] });

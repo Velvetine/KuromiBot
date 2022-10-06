@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder, ButtonBuilder } = require('discord.js');
 const { ButtonStyle } = require('discord.js');
 const fs = require('fs');
-const file = 'txtfiles/anno.txt';
+const file = 'txtfiles/sick.txt';
 const allowedRoles = [
   '386270894286176257',
   '791613603534733314'
@@ -11,8 +11,8 @@ const allowedRoles = [
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('anno')
-    .setDescription('Post a picture of that one guy who did some shows!')
+    .setName('sick')
+    .setDescription('For when you\'re not feeling so good')
     .addSubcommand(subcommand =>
       subcommand
         .setName('add')
@@ -30,7 +30,7 @@ module.exports = {
     .addSubcommand(subcommand =>
       subcommand
         .setName('post')
-        .setDescription('As you\'d expect from the master.')),
+        .setDescription('Posts some illness!')),
   
   async execute(interaction) {
     if (interaction.options.getSubcommand() === 'add') {
@@ -120,7 +120,7 @@ module.exports = {
       }
       else {
         const embed = new EmbedBuilder()
-          .setTitle('A legend at work...')
+          .setTitle('I don\'t feel so good...')
           .setColor(0xf6a7c0)
           .setImage(textByLine[selection]);
         await interaction.reply({ embeds: [embed] });

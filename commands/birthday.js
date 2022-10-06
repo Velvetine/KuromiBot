@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder, ButtonBuilder } = require('discord.js');
 const { ButtonStyle } = require('discord.js');
 const fs = require('fs');
-const file = 'txtfiles/anno.txt';
+const file = 'txtfiles/birthday.txt';
 const allowedRoles = [
   '386270894286176257',
   '791613603534733314'
@@ -11,8 +11,8 @@ const allowedRoles = [
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('anno')
-    .setDescription('Post a picture of that one guy who did some shows!')
+    .setName('birthday')
+    .setDescription('Wish someone a happy birthday!')
     .addSubcommand(subcommand =>
       subcommand
         .setName('add')
@@ -29,8 +29,11 @@ module.exports = {
         .setDescription('Check how many images/videos are in this command!'))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('post')
-        .setDescription('As you\'d expect from the master.')),
+        .setName('send')
+        .setDescription('Give some birthday cheer!')
+        .addUserOption(option =>
+          option.setName('user')
+          .setDescription('Who\'s the lucky birthday person?'))),
   
   async execute(interaction) {
     if (interaction.options.getSubcommand() === 'add') {
@@ -110,20 +113,21 @@ module.exports = {
       const text = fs.readFileSync(file).toString('utf-8');
       const textByLine = text.split('\n');
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
-    } else if (interaction.options.getSubcommand() === 'post') {
+    } else if (interaction.options.getSubcommand() === 'send') {
+      const user = interaction.options.getUser('user');
       const text = fs.readFileSync(file).toString('utf-8');
       const textByLine = text.split('\n');
       const max = textByLine.length - 2;
       const selection = Math.floor(Math.random() * max);
       if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1) {
-        await interaction.reply(textByLine[selection]);
+        await interaction.reply(`<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂` + textByLine[selection]);
       }
       else {
         const embed = new EmbedBuilder()
-          .setTitle('A legend at work...')
+          .setTitle('お誕生日おめでとう！')
           .setColor(0xf6a7c0)
           .setImage(textByLine[selection]);
-        await interaction.reply({ embeds: [embed] });
+        await interaction.reply({ content: `<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂`, embeds: [embed] });
       }
     }
   }

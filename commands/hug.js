@@ -119,11 +119,16 @@ module.exports = {
       const textByLine = text.split('\n');
       const max = textByLine.length - 2;
       const selection = Math.floor(Math.random() * max);
-      const embed = new EmbedBuilder()
-        .setTitle('Sharing the love!')
-        .setColor(0xf6a7c0)
-        .setImage(textByLine[selection]);
-      await interaction.reply({ content: `<@${interaction.user.id}> hugged <@${user.id}>! 💝`, embeds: [embed] });
+      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1) {
+        await interaction.reply(`<@${interaction.user.id}> hugged <@${user.id}>! 💝` + textByLine[selection]);
+      }
+      else {
+        const embed = new EmbedBuilder()
+          .setTitle('Sharing the love!')
+          .setColor(0xf6a7c0)
+          .setImage(textByLine[selection]);
+        await interaction.reply({ content: `<@${interaction.user.id}> hugged <@${user.id}>! 💝`, embeds: [embed] });
+      }
     }
   }
-}
+};
