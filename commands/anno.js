@@ -34,7 +34,7 @@ module.exports = {
   
   async execute(interaction) {
     if (interaction.options.getSubcommand() === 'add') {
-      if (interaction.user.roles.cache.some(role => allowedRoles.includes(role.id))) {
+      if (interaction.guildMember.roles.cache.some(role => allowedRoles.includes(role.id))) {
         const addition = interaction.options.getString('media');
         const text = fs.readFileSync(file, 'utf8');
         const textByLine = text.split('\n');
