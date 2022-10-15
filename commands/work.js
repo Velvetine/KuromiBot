@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { EmbedBuilder, ButtonBuilder } = require('discord.js');
 const { ButtonStyle } = require('discord.js');
 const fs = require('fs');
-const file = 'txtfiles/study.txt';
+const file = 'txtfiles/work.txt';
 const allowedRoles = [
   '386270894286176257',
   '791613603534733314'
@@ -115,7 +115,7 @@ module.exports = {
       const textByLine = text.split('\n');
       const max = textByLine.length - 2;
       const selection = Math.floor(Math.random() * max);
-      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1) {
+      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
         await interaction.reply(textByLine[selection]);
       }
       else {

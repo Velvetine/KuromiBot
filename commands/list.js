@@ -26,10 +26,10 @@ module.exports = {
       .addFields(
         { name: 'Head\'s up!', value: 'For * commands, you can submit images/videos for this command in <#425323394704080899>!' },
         { name: '1', value: 'annesmash\nanno*\nbananice\nbang*\nbetray\nbirthday*\nbodegacat', inline: true },
-        { name: '2', value: 'bonk*\ncatspopcorn\nchaos\ncry\ncureboom\ndarntootin\ndezaki*', inline: true },
-        { name: '3', value: 'exciting\nexclusive\nfly\nfrench\nfriendship\nfumo*\nfuu', inline: true },
-        { name: '4', value: 'gaming\ngeass\ngoosehouse\ngreatcat*\ngundoh\nhug*\nidoltime', inline: true },
-        { name: '5', value: 'journalism\nkeyframes\nlaborcrime\nleaf\nletshearit\nlist\nlove', inline: true }
+        { name: '2', value: 'bonk*\ncatspopcorn\ncry\ncureboom\ndarntootin\ndezaki*\nexciting', inline: true },
+        { name: '3', value: 'exclusive\nfly\nfrench\nfriendship\nfumo*\nfuu\ngaming', inline: true },
+        { name: '4', value: 'geass\ngoosehouse\ngreatcat*\ngundoh\nhug*\nidoltime\journalism', inline: true },
+        { name: '5', value: 'keyframes\nlaborcrime\nleaf\nletshearit\nlist\nlove\nlum*', inline: true }
       );
     const page2 = new EmbedBuilder()
       .setTitle('COMMANDS LIST')
@@ -38,10 +38,10 @@ module.exports = {
       .setFooter({ text: 'Page 2/2' })
       .addFields(
         { name: 'Head\'s up!', value: 'For * commands, you can submit images/videos for this command in <#425323394704080899>!' },
-        { name: '1', value: 'lum*\nlun*\nmacross7\nmoney\nmonopolymermaid\nmorning*\nmugistrong', inline: true },
-        { name: '2', value: 'munch*\nnana\nnobodymove\noyoyo\npat*\nping\nproblematic*', inline: true },
-        { name: '3', value: 'ran*\nrepeat\nroll\nserver\nsheri\nsick*\nsing', inline: true },
-        { name: '4', value: 'sleep*\nsomebody\nstudy*\nthankyou\nthedog\ntogchamp\nunderstand*', inline: true },
+        { name: '1', value: 'lun*\nmacross7\nmoney\nmonopolymermaid\nmorning*\nmugistrong\nmunch*', inline: true },
+        { name: '2', value: 'nana\nnobodymove\noyoyo\npat*\nping\nproblematic*\nran*', inline: true },
+        { name: '3', value: 'repeat\nroll\nserver\nsheri\nsick*\nsing\nsleep*', inline: true },
+        { name: '4', value: 'somebody\nsource\nstudy*\nthankyou\nthedog\ntogchamp\nunderstand*', inline: true },
         { name: '5', value: 'user\nweh\nwide\nwigan\nwork*\nworldpremiere', inline: true },
       );
     

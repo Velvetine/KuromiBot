@@ -115,7 +115,7 @@ module.exports = {
       const textByLine = text.split('\n');
       const max = textByLine.length - 2;
       const selection = Math.floor(Math.random() * max);
-      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1) {
+      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
         await interaction.reply(textByLine[selection]);
       }
       else {
