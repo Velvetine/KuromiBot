@@ -12,12 +12,10 @@ module.exports = {
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
-          .setCustomId('main')
           .setLabel('Source Code')
           .setURL('https://github.com/Velvetine/kuromibot')
           .setStyle(ButtonStyle.Link),
         new ButtonBuilder()
-          .setCustomId('issues')
           .setLabel('Bug Report')
           .setURL('https://github.com/Velvetine/kuromibot/issues')
           .setStyle(ButtonStyle.Link),

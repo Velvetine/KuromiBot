@@ -15,7 +15,7 @@ module.exports = {
       const textByLine = text.split('\n');
       const max = textByLine.length - 2;
       const selection = Math.floor(Math.random() * max);
-      await interaction.reply(`${kuromi} ` + selection);
+      await interaction.reply(`${kuromi} ` + textByLine[selection]);
     }
     else {
       await interaction.reply('What makes you think YOU get to unleash chaos?');
