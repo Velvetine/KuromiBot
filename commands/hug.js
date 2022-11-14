@@ -114,7 +114,7 @@ module.exports = {
       const textByLine = text.split('\n');
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
     } else if (interaction.options.getSubcommand() === 'send') {
-      const user = interaction.options.getUser('user');
+      const user = interaction.options.getMentionable('user');
       if (!user) {
         await interaction.reply('Look at this person hugging THEMSELVES! How sad!');
       }
