@@ -31,7 +31,7 @@ module.exports = {
       subcommand
         .setName('send')
         .setDescription('Give some comfort!')
-        .addMentionableOption(option =>
+        .addUserOption(option =>
           option.setName('user')
           .setDescription('Who do you want to pat?'))),
   
@@ -114,7 +114,7 @@ module.exports = {
       const textByLine = text.split('\n');
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
     } else if (interaction.options.getSubcommand() === 'send') {
-      const user = interaction.options.getMentionable('user');
+      const user = interaction.options.getUser('user');
       if (!user) {
         await interaction.reply('What are you doing patting the *air?* You seem like a huge dummy.');
       }
