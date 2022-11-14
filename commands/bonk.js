@@ -31,7 +31,7 @@ module.exports = {
       subcommand
         .setName('send')
         .setDescription('Let the violence fly!')
-        .addUserOption(option =>
+        .addMentionableOption(option =>
           option.setName('user')
           .setDescription('Who do you want to bonk?'))),
   
@@ -115,19 +115,33 @@ module.exports = {
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
     } else if (interaction.options.getSubcommand() === 'send') {
       const user = interaction.options.getUser('user');
-      const text = fs.readFileSync(file).toString('utf-8');
-      const textByLine = text.split('\n');
-      const max = textByLine.length - 2;
-      const selection = Math.floor(Math.random() * max);
-      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
-        await interaction.reply(`<@${interaction.user.id}> bonked <@${user.id}>! 🩹` + textByLine[selection]);
+      if (!user) {
+        await interaction.reply('You MISSED! How do you MISS?! The bonkee was RIGHT THERE! アホ！');
       }
       else {
-        const embed = new EmbedBuilder()
-          .setTitle('THWACK!')
-          .setColor(0xf6a7c0)
-          .setImage(textByLine[selection]);
-        await interaction.reply({ content: `<@${interaction.user.id}> bonked <@${user.id}>! 🩹`, embeds: [embed] });
+        const text = fs.readFileSync(file).toString('utf-8');
+        const textByLine = text.split('\n');
+        const max = textByLine.length - 2;
+        const selection = Math.floor(Math.random() * max);
+        if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
+          await interaction.reply(`<@${interaction.user.id}> bonked <@${user.id}>! 🩹` + textByLine[selection]);
+        }
+        else {
+          if (user.id === '701454786976940152') {
+            const embed = new EmbedBuilder()
+              .setTitle('OWOWOWOWOWOWOWOW')
+              .setColor(0xf6a7c0)
+              .setImage(textByLine[selection]);
+            await interaction.reply({ content: `OW! Why are you bonking ME?! OW! STOP DOING THAT OR I'LL GET REALLY MAD!`, embeds: [embed] });
+          }
+          else {
+            const embed = new EmbedBuilder()
+              .setTitle('THWACK!')
+              .setColor(0xf6a7c0)
+              .setImage(textByLine[selection]);
+            await interaction.reply({ content: `<@${interaction.user.id}> bonked <@${user.id}>! 🩹`, embeds: [embed] });
+          }
+        }
       }
     }
   }

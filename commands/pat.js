@@ -31,7 +31,7 @@ module.exports = {
       subcommand
         .setName('send')
         .setDescription('Give some comfort!')
-        .addUserOption(option =>
+        .addMentionableOption(option =>
           option.setName('user')
           .setDescription('Who do you want to pat?'))),
   
@@ -115,19 +115,33 @@ module.exports = {
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
     } else if (interaction.options.getSubcommand() === 'send') {
       const user = interaction.options.getUser('user');
-      const text = fs.readFileSync(file).toString('utf-8');
-      const textByLine = text.split('\n');
-      const max = textByLine.length - 2;
-      const selection = Math.floor(Math.random() * max);
-      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
-        await interaction.reply(`<@${interaction.user.id}> patted <@${user.id}>! 💞` + textByLine[selection]);
+      if (!user) {
+        await interaction.reply('What are you doing patting the *air?* You seem like a huge dummy.');
       }
       else {
-        const embed = new EmbedBuilder()
-          .setTitle('よしよし～')
-          .setColor(0xf6a7c0)
-          .setImage(textByLine[selection]);
-        await interaction.reply({ content: `<@${interaction.user.id}> patted <@${user.id}>! 💞`, embeds: [embed] });
+        const text = fs.readFileSync(file).toString('utf-8');
+        const textByLine = text.split('\n');
+        const max = textByLine.length - 2;
+        const selection = Math.floor(Math.random() * max);
+        if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
+          await interaction.reply(`<@${interaction.user.id}> patted <@${user.id}>! 💞` + textByLine[selection]);
+        }
+        else {
+          if (user.id === '701454786976940152') {
+            const embed = new EmbedBuilder()
+              .setTitle('ううう。。。')
+              .setColor(0xf6a7c0)
+              .setImage(textByLine[selection]);
+            await interaction.reply({ content: `D-Don\'t pat me like that! It's s-super embarrassing...!`, embeds: [embed] })
+          }
+          else {
+            const embed = new EmbedBuilder()
+              .setTitle('よしよし～')
+              .setColor(0xf6a7c0)
+              .setImage(textByLine[selection]);
+            await interaction.reply({ content: `<@${interaction.user.id}> patted <@${user.id}>! 💞`, embeds: [embed] });
+          }
+        }
       }
     }
   }

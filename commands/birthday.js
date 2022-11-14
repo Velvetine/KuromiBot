@@ -31,7 +31,7 @@ module.exports = {
       subcommand
         .setName('send')
         .setDescription('Give some birthday cheer!')
-        .addUserOption(option =>
+        .addMentionableOption(option =>
           option.setName('user')
           .setDescription('Who\'s the lucky birthday person?'))),
   
@@ -115,19 +115,24 @@ module.exports = {
       await interaction.reply('There are ' + (textByLine.length - 1) + ' entries in this command!')
     } else if (interaction.options.getSubcommand() === 'send') {
       const user = interaction.options.getUser('user');
-      const text = fs.readFileSync(file).toString('utf-8');
-      const textByLine = text.split('\n');
-      const max = textByLine.length - 2;
-      const selection = Math.floor(Math.random() * max);
-      if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
-        await interaction.reply(`<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂` + textByLine[selection]);
+      if (!user) {
+        await interaction.reply('Happy birthday...to NOBODY! What, are you saying happy birthday to the air? DUMMY!');
       }
       else {
-        const embed = new EmbedBuilder()
-          .setTitle('お誕生日おめでとう！')
-          .setColor(0xf6a7c0)
-          .setImage(textByLine[selection]);
-        await interaction.reply({ content: `<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂`, embeds: [embed] });
+        const text = fs.readFileSync(file).toString('utf-8');
+        const textByLine = text.split('\n');
+        const max = textByLine.length - 2;
+        const selection = Math.floor(Math.random() * max);
+        if (textByLine[selection].search('.mp4') != -1 || textByLine[selection].search('.webm') != -1 || textByLine[selection].search('.mov') != -1) {
+          await interaction.reply(`<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂` + textByLine[selection]);
+        }
+        else {
+          const embed = new EmbedBuilder()
+            .setTitle('お誕生日おめでとう！')
+            .setColor(0xf6a7c0)
+            .setImage(textByLine[selection]);
+          await interaction.reply({ content: `<@${interaction.user.id}> wishes <@${user.id}> a happy birthday! 🥳🎂`, embeds: [embed] });
+        }
       }
     }
   }
